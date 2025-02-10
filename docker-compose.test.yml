@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_test:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: todo_app_test
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:7
+    volumes:
+      - redis_test:/data
+    ports:
+      - "6380:6379"
+
+  rspec:
+    build: .
+    volumes:
+      - .:/app
+      - bundle_test:/usr/local/bundle
+      - node_modules_test:/app/node_modules
+    environment:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:password@db:5432/todo_app_test
+      REDIS_URL: redis://redis:6379/1
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+    depends_on:
+      - db
+      - redis
+    command: bundle exec rspec
+
+volumes:
+  postgres_test:
+  redis_test:
+  bundle_test:
+  node_modules_test:

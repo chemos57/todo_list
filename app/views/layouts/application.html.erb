@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%# SEO Meta Tags %>
+    <title><%= content_for?(:title) ? yield(:title) : "Your App Name" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Default description" %>">
+
+    <%# Open Graph / Facebook %>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:title" content="<%= content_for?(:og_title) ? yield(:og_title) : content_for?(:title) ? yield(:title) : 'Your App Name' %>">
+    <meta property="og:description" content="<%= content_for?(:og_description) ? yield(:og_description) : content_for?(:description) ? yield(:description) : 'Default description' %>">
+
+    <%# CSRF & CSP Security Headers %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%# Stylesheets %>
+    <%= stylesheet_link_tag "application", data: { turbo_track: "reload" } %>
+
+    <%# JavaScript %>
+    <%= javascript_include_tag "application", data: { turbo_track: "reload" }, defer: true %>
+
+    <%# Custom head content %>
+    <%= yield(:head) %>
+
+    <%# Google Analytics or similar (in production only) %>
+    <% if Rails.env.production? %>
+      <%# Add your analytics script here %>
+    <% end %>
+  </head>
+
+  <body class="<%= content_for?(:body_class) ? yield(:body_class) : 'default-body-class' %>">
+    <%# Accessibility Skip Link %>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <%# Flash Messages %>
+    <% if notice.present? || alert.present? %>
+      <div class="flash-messages" role="alert" aria-live="polite">
+        <% if notice.present? %>
+          <div class="flash flash-notice">
+            <%= notice %>
+          </div>
+        <% end %>
+
+        <% if alert.present? %>
+          <div class="flash flash-alert">
+            <%= alert %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%# Header %>
+    <header class="main-header">
+      <%= render 'shared/header' %>
+    </header>
+
+    <%# Main Content %>
+    <main id="main-content" role="main" class="container <%= content_for?(:content_class) ? yield(:content_class) : '' %>">
+      <%# Breadcrumbs %>
+      <%= render 'shared/breadcrumbs' if content_for?(:breadcrumbs) %>
+
+      <%# Page Title %>
+      <% if content_for?(:page_title) %>
+        <h1 class="page-title"><%= yield(:page_title) %></h1>
+      <% end %>
+
+      <%# Main Content %>
+      <%= yield %>
+    </main>
+
+    <%# Footer %>
+    <footer class="main-footer">
+      <%= render 'shared/footer' %>
+    </footer>
+
+    <%# Modal Container %>
+    <div id="modal-container"></div>
+
+    <%# Additional JavaScript %>
+    <%= yield(:javascript) %>
+
+    <%# Screen Reader Announcements %>
+    <div id="sr-announcements" class="sr-only" aria-live="polite"></div>
+  </body>
+</html>

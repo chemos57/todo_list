@@ -1,0 +1,11 @@
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <%= link_to root_path do %>
+        <i class="fas fa-home"></i>
+      <% end %>
+    </li>
+    
+    <%= yield(:breadcrumbs) %>
+  </ol>
+</nav>

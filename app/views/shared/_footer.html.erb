@@ -1,0 +1,24 @@
+<div class="footer-container">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Your App Name</h3>
+      <p>&copy; <%= Time.current.year %> Your Company. All rights reserved.</p>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <div class="social-links">
+      <%= link_to "https://twitter.com/yourapp", target: "_blank", rel: "noopener" do %>
+        <i class="fab fa-twitter"></i>
+      <% end %>
+      
+      <%= link_to "https://github.com/yourapp", target: "_blank", rel: "noopener" do %>
+        <i class="fab fa-github"></i>
+      <% end %>
+      
+      <%= link_to "https://linkedin.com/company/yourapp", target: "_blank", rel: "noopener" do %>
+        <i class="fab fa-linkedin"></i>
+      <% end %>
+    </div>
+  </div>
+</div>
