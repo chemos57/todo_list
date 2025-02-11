@@ -3,6 +3,10 @@
 Please note that this is a demo app, so the purpose wasn't to present an app with full
 test coverage or so.
 
+### Prerequisites
+
+You should have installed docker at your local.
+
 ### Initial setup
 
 In order to bootstrap your dev environment:
@@ -15,6 +19,8 @@ In order to bootstrap your dev environment:
 After you've done this once, you can just boot your dev environment with
  `docker-compose up`
 
+Then access `http://localhost:3000` and you can create/update/delete/toggle the todos.
+
 ### Local test environment
 
 #### To bash into `RAILS_ENV=test`
@@ -25,7 +31,9 @@ After you've done this once, you can just boot your dev environment with
 
 This app for demo purposes also exposes an API
 
-To hit it you can use Postman and here are how you can use this API
+To hit it you can use Postman and here is how you can use this API
+
+Run the app locally. Then you can use this collection https://documenter.getpostman.com/view/30860829/2sAYXBFzFz or take the queries listed below for simplicity.
 
 `{
   "query": "mutation($input: TodoInput!) { createTodo(input: $input) { todo { id title description completed } errors } }",
